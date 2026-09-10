@@ -8,10 +8,13 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://github.com/nginx/nginx-gateway-fabric
-    targetRevision: v2.6.7
-    path: config/crd/gateway-api/standard
+  sources:
+    - repoURL: https://github.com/nginx/nginx-gateway-fabric
+      targetRevision: v2.6.7
+      path: config/crd/gateway-api/standard
+    - repoURL: https://github.com/nginx/nginx-gateway-fabric
+      targetRevision: v2.6.7
+      path: config/crd/bases
 
   destination:
     server: https://kubernetes.default.svc

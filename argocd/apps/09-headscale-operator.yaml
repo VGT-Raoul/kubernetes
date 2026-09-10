@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: headscale-operator
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: default
+
+  source:
+    repoURL: ghcr.io/infradohq/headscale-operator/charts
+    chart: headscale-operator
+    targetRevision: 0.5.0
+    helm:
+      skipCrds: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: headscale-operator
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true

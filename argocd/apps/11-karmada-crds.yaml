@@ -1,21 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: karmada-operator
+  name: karmada-operator-crds
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   project: default
 
   source:
-    repoURL: https://raw.githubusercontent.com/karmada-io/karmada/master/charts
-    chart: karmada-operator
+    repoURL: https://github.com/karmada-io/karmada
     targetRevision: v1.17.1
-    helm:
-      parameters:
-        - name: installCRDs
-          value: "false"
+    path: operator/config/crds
 
   destination:
     server: https://kubernetes.default.svc

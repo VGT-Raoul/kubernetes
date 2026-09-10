@@ -7,9 +7,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/VGT-Raoul/kubernetes/apps
+    repoURL: https://github.com/VGT-Raoul/kubernetes
     targetRevision: main
-    path: argocd
+    path: argocd/apps
 
   destination:
     server: https://kubernetes.default.svc

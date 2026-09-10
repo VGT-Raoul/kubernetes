@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak-operator
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: default
+
+  source:
+    repoURL: ghcr.io/hostzero-gmbh/charts
+    chart: keycloak-operator
+    targetRevision: 0.12.0
+    helm:
+      parameters:
+        - name: crds.install
+          value: "false"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: keycloak-operator
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true

@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dapr-crds
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+  labels:
+    app.kubernetes.io/part-of: vgt-galaxy-operators
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/dapr/dapr
+    targetRevision: v1.18.4
+    path: charts/dapr/crds
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dapr-system
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true

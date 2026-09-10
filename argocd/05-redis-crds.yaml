@@ -11,8 +11,8 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/OT-CONTAINER-KIT/helm-charts
-    targetRevision: main
+    repoURL: https://github.com/OT-CONTAINER-KIT/redis-operator
+    targetRevision: v0.26.0
     path: charts/redis-operator/crds
 
   destination:

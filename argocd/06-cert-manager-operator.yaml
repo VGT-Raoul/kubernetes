@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager-operator
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  labels:
+    app.kubernetes.io/part-of: vgt-galaxy-operators
+spec:
+  project: default
+
+  source:
+    repoURL: oci://quay.io/jetstack/charts
+    chart: cert-manager
+    targetRevision: v1.21.0
+    helm:
+      parameters:
+        - name: crds.enabled
+          value: "false"
+        - name: config.enableGatewayAPI
+          value: "true"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

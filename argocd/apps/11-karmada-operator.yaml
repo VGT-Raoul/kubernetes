@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: karmada-operator
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://raw.githubusercontent.com/karmada-io/karmada/master/charts
+    chart: karmada-operator
+    targetRevision: v1.17.1
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: karmada-operator
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

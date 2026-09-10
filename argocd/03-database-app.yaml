@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/VGT-Raoul/kubernetes
+    repoURL: https://github/VGT-Raoul/kubernetes
     targetRevision: main
     path: database
 

@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: starrocks-operator
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: default
+
+  source:
+    repoURL: https://starrocks.github.io/starrocks-kubernetes-operator
+    chart: operator
+    targetRevision: 1.11.7
+    helm:
+      skipCrds: true
+      parameters:
+        - name: timeZone
+          value: UTC
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: starrocks
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true

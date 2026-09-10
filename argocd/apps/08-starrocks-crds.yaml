@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: starrocks-operator-crds
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/StarRocks/starrocks-kubernetes-operator
+    targetRevision: v1.11.7
+    path: helm-charts/charts/kube-starrocks/charts/operator/crds
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: starrocks
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true

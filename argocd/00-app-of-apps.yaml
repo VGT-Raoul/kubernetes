@@ -9,7 +9,9 @@ spec:
   source:
     repoURL: https://github.com/VGT-Raoul/kubernetes
     targetRevision: main
-    path: argocd/apps
+    path: argocd
+    directory:
+      recurse: true
 
   destination:
     server: https://kubernetes.default.svc

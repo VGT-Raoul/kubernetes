@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redis-operator-crds
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+  labels:
+    app.kubernetes.io/part-of: vgt-galaxy-operators
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/OT-CONTAINER-KIT/helm-charts
+    targetRevision: main
+    path: charts/redis-operator/crds
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: redis-operator
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true

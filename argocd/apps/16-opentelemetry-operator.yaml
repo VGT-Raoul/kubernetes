@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opentelemetry-operator
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/open-telemetry/opentelemetry-operator
+    targetRevision: v0.159.0
+    path: config/default
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: opentelemetry-operator-system
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true

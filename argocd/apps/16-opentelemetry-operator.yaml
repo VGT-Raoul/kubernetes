@@ -10,6 +10,9 @@ spec:
     repoURL: https://github.com/open-telemetry/opentelemetry-operator
     targetRevision: v0.159.0
     path: config/default
+    kustomize:
+      images:
+        - controller=ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.159.0
 
   destination:
     server: https://kubernetes.default.svc

@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: barman-cloud-plugin-crds
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/cloudnative-pg/plugin-barman-cloud
+    targetRevision: v0.15.0
+    path: config/crd/bases
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: postgres-operator
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true
